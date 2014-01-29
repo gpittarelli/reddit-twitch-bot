@@ -28,12 +28,10 @@ def fetch_streams(channel_names):
         message = response.json()
     except ValueError:
         # JSON Decode failed
-        logging.warning("Invalid message from Justin.TV: %s" % (response.text))
-        return []
+        sys.exit("Invalid message from Justin.TV: %s" % (response.text))
 
     if not isinstance(message, list):
-        logging.warning("Unexpected JSON from Justin.TV: %s" % (message))
-        return []
+        sys.exit("Unexpected JSON from Justin.TV: %s" % (message))
 
     print(response)
 
