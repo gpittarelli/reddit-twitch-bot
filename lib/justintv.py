@@ -17,12 +17,12 @@ for channels that were queried but aren't streaming)
 
    [{"login":"esltv_dota", ... many more properties ... }, ...]
 '''
-JUSTIN_STREAM_URL = "https://api.justin.tv/api/stream/list.json?channel=%s"
+STREAM_URL = "https://api.justin.tv/api/stream/list.json?channel=%s"
 
 # Takes an array of channel names and returns the names from the array
 # which are currently streaming
-def justin_fetch_channels(channel_names):
-    response = requests.get(JUSTIN_STREAM_URL % (",".join(channel_names)))
+def fetch_streams(channel_names):
+    response = requests.get(STREAM_URL % (",".join(channel_names)))
 
     try:
         message = response.json()
