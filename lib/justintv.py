@@ -33,13 +33,4 @@ def fetch_streams(channel_names):
     if not isinstance(message, list):
         sys.exit("Unexpected JSON from Justin.TV: %s" % (message))
 
-    print(response)
-
-    channels = []
-    try:
-        channels = map(lambda s: s["channel"]["login"], message)
-    except KeyError:
-        logging.warning("Justin.TV response format has changed: %s"
-                        % (stream.json()))
-
-    return channelsxo
+    return message
