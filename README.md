@@ -40,5 +40,7 @@ the following substitutions made:
 | $viewers      | The number of active viewers                 |
 | $title        | The current title of the stream              |
 | $icon         | The URL of the streamer's 70x70 icon         |
-| $icon_med     | Same as $icon, but for the 150x150 icon      |
+| $icon_tiny    | The URL of the streamer's 70x70 icon         |
+| $icon_small   | Same as $icon, but for the 150x150 icon      |
 | $icon_large   | Same as $icon, but for the 300x300 icon      |
+| $icon_huge    | Same as $icon, but for the 300x300 icon      |
