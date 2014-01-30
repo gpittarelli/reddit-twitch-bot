@@ -109,9 +109,9 @@ def update_sidebar(config, content):
 # displayed in the subreddit sidebar
 def render(args, config, streams):
     if len(streams) > 0:
-        header = config.get('Settings', 'header')
-        footer = config.get('Settings', 'footer')
-        separator = config.get('Settings', 'separator')
+        header = decode_str(config.get('Settings', 'header'))
+        footer = decode_str(config.get('Settings', 'footer'))
+        separator = decode_str(config.get('Settings', 'separator'))
 
         template_raw = config.get('Settings', 'template')
         template = Template(decode_str(template_raw))
@@ -121,7 +121,7 @@ def render(args, config, streams):
 
         return header + body + footer
     else:
-        return config.get('Settings', 'no_streams')
+        return decode_str(config.get('Settings', 'no_streams'))
 
 
 # Extract the values from a stream that may be substituted into the
