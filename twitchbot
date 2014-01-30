@@ -90,7 +90,8 @@ def update_sidebar(config, content):
     # Remove text currently between the markers
     sidebar = re.sub(r'(\[\]\(#BOT_STREAMS\)).*(\[\]\(/BOT_STREAMS\))',
                      '\\1\\2',
-                     sidebar)
+                     sidebar,
+                     flags=re.DOTALL)
 
     # Place new text between the markers
     opening_marker = "[](#BOT_STREAMS)"
