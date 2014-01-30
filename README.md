@@ -44,3 +44,8 @@ the following substitutions made:
 | $icon_small   | Same as $icon, but for the 150x150 icon      |
 | $icon_large   | Same as $icon, but for the 300x300 icon      |
 | $icon_huge    | Same as $icon, but for the 300x300 icon      |
+
+Code Style
+----------
+
+All code is PEP8 compliant.

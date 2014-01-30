@@ -19,6 +19,7 @@ for channels that were queried but aren't streaming)
 '''
 STREAM_URL = "https://api.justin.tv/api/stream/list.json?channel=%s"
 
+
 # Takes an array of channel names and returns the names from the array
 # which are currently streaming
 def fetch_streams(channel_names):
