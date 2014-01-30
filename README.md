@@ -45,6 +45,9 @@ the following substitutions made:
 | $icon_large   | Same as $icon, but for the 300x300 icon      |
 | $icon_huge    | Same as $icon, but for the 600x600 icon      |
 
+Also, all Python escape sequences are supported in `template`,
+`header`, `footer`, `separator`, and `no_streams`.
+
 Code Style
 ----------
 

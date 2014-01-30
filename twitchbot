@@ -18,7 +18,7 @@ def main():
     stream_names = [s.strip() for s in stream_names]
     streams = justintv.fetch_streams(stream_names)
 
-    output = render(config, streams)
+    output = render(args, config, streams)
 
     if args.print_output:
         print(output)
@@ -108,13 +108,15 @@ def update_sidebar(config, content):
 
 # Given config settings a stream info, render the output to be
 # displayed in the subreddit sidebar
-def render(config, streams):
+def render(args, config, streams):
     if len(streams) > 0:
         header = config.get('Settings', 'header')
         footer = config.get('Settings', 'footer')
         separator = config.get('Settings', 'separator')
 
-        template = Template(config.get('Settings', 'template'))
+        template_raw = config.get('Settings', 'template')
+        template = Template(decode_str(template_raw))
+
         renders = [template.safe_substitute(get_vals(s)) for s in streams]
         body = separator.join(renders)
 
@@ -136,6 +138,16 @@ def get_vals(stream):
         'icon_large': stream['channel']['image_url_large'],
         'icon_huge': stream['channel']['image_url_huge']
     }
+
+
+# Given a string, decode python escape sequences (\n, \t, ...)
+def decode_str(s):
+    # Slightly different in Python 3 vs 2
+    if sys.version_info[0] == 3:
+        return bytes(s, "utf-8").decode("unicode_escape")
+    else:
+        return s.decode('string_escape')
+
 
 if __name__ == "__main__":
     main()
