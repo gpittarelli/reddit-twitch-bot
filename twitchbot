@@ -1,13 +1,48 @@
 #!/usr/bin/env python
 import sys, re, configparser, re
 import praw
+import argparse
 
 from string import Template
 from lib import justintv
 
 def main():
-    config_file = "config.conf" if (len(sys.argv) == 1) else sys.argv[1]
+    args = parse_args()
+    config = load_config(args.config_file)
 
+    stream_names = config.get('Settings', 'streams').split(",")
+    stream_names = [s.strip() for s in stream_names]
+    streams = justintv.fetch_streams(stream_names)
+
+    output = render(config, streams)
+    print(output)
+
+    if update_sidebar(config, output):
+        print("Update successfule!")
+
+    print("Update successful")
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="""\
+Lookup the status of Twitch.TV streams and write them to a\n
+subreddit\'s sidebar.""")
+    parser.add_argument('config_file',
+                        type=str, nargs='?',
+                        default='config.conf',
+                        help='the config file to read')
+    parser.add_argument('--print-output', dest='print_output',
+                        action='store_true',
+                        help='print the rendered output')
+    parser.add_argument('--dry-run', dest='dry_run',
+                        action='store_true',
+                        help='Just print the rendered output')
+    parser.add_argument('--debug', '-d', dest='debug',
+                        action='store_true',
+                        help='implies --print-output and --dry-run')
+
+    return parser.parse_args()
+
+def load_config(file_name):
     config = configparser.ConfigParser({
         'no_streams': '',
         'streams': '',
@@ -17,20 +52,16 @@ def main():
         'template': '$name',
         'owner': ''
     })
+
     try:
-        with open(config_file) as f:
+        with open(file_name) as f:
             config.read_file(f)
     except IOError:
-        sys.exit('Could not open \'{}\'.'.format(config_file))
+        sys.exit('Could not open \'{}\'.'.format(file_name))
 
+    return config
 
-    stream_names = config.get('Settings', 'streams').split(",")
-    stream_names = [s.strip() for s in stream_names]
-    streams = justintv.fetch_streams(stream_names)
-
-    output = render(config, streams)
-    print(output)
-
+def update_sidebar(config, content):
     owner = config.get('Settings', 'owner')
     r = praw.Reddit(user_agent='Twitch.TV Stream Bot /u/{}/'.format(owner))
 
@@ -47,18 +78,17 @@ def main():
                      '\\1\\2',
                      sidebar)
 
+    # Place new text between the markers
     opening_marker = "[](#BOT_STREAMS)"
-    if output:
+    if content:
         try:
             marker_pos = sidebar.index(opening_marker) + len(opening_marker)
-            sidebar = sidebar[:marker_pos] + output + sidebar[marker_pos:]
+            sidebar = sidebar[:marker_pos] + content + sidebar[marker_pos:]
         except ValueError:
             # Substring not found
             logging.warning("No streams marker found.")
 
     subreddit.update_settings(description=sidebar)
-
-    print("Update successful")
 
 
 # Given config settings a stream info, render the output to be
