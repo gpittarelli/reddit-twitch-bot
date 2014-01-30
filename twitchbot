@@ -24,10 +24,12 @@ def main():
         sys.exit('Could not open \'{}\'.'.format(config_file))
 
 
-    stream_names = config.get('Settings', 'streams')
+    stream_names = config.get('Settings', 'streams').split(",")
+    stream_names = [s.strip() for s in stream_names]
     streams = justintv.fetch_streams(stream_names)
 
     output = render(config, streams)
+    print(output)
 
     owner = config.get('Settings', 'owner')
     r = praw.Reddit(user_agent='Twitch.TV Stream Bot /u/{}/'.format(owner))
