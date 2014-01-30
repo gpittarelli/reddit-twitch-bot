@@ -131,7 +131,8 @@ def get_vals(stream):
     return {
         'name': stream['channel']['login'],
         'viewers': stream['channel_count'],
-        'title': stream['channel']['title'],
+        'title': stream['title'],
+        'status': stream['channel']['status'],
         'icon_tiny': stream['channel']['image_url_tiny'],
         'icon_small': stream['channel']['image_url_small'],
         'icon': stream['channel']['image_url_medium'],
