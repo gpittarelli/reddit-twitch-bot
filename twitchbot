@@ -20,7 +20,7 @@ def main():
 
     output = render(config, streams)
 
-    if args.debug:
+    if args.print_output:
         print(output)
 
     if not args.dry_run and update_sidebar(config, output):
@@ -47,7 +47,13 @@ subreddit\'s sidebar.""")
                         action='store_true',
                         help='implies --print-output and --dry-run')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if args.debug:
+        args.dry_run = True
+        args.print_output = True
+
+    return args
 
 
 def load_config(file_name):
