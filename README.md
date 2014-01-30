@@ -7,8 +7,10 @@ a subreddit's sidebar with their current statuses.
 Usage
 -----
 
- 0. Have Python installed, along with the
-    [requests library](http://docs.python-requests.org/en/latest/user/install/).
+ 0. Have Python (v2 or v3) installed, along with the following libraries:
+    0. [Requests](http://docs.python-requests.org/en/latest/user/install/)
+    1. [PRAW](https://praw.readthedocs.org/en/latest/#installation)
+    2. configparser
  1. Create a reddit account for the bot, and make it a mod on the
     subreddit you want it to work on.
  2. Clone this repository.
