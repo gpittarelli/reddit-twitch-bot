@@ -15,10 +15,12 @@ def main():
     streams = justintv.fetch_streams(stream_names)
 
     output = render(config, streams)
-    print(output)
 
-    if update_sidebar(config, output):
-        print("Update successfule!")
+    if args.debug:
+        print(output)
+
+    if not args.dry_run and update_sidebar(config, output):
+        print("Update successful!")
 
     print("Update successful")
 
