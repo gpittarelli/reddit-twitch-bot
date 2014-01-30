@@ -1,10 +1,14 @@
 #!/usr/bin/env python
-import sys, re, configparser, re
-import praw
+import sys
+import re
+import configparser
+import re
 import argparse
+import praw
 
 from string import Template
 from lib import justintv
+
 
 def main():
     args = parse_args()
@@ -23,6 +27,7 @@ def main():
         print("Update successful!")
 
     print("Update successful")
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="""\
@@ -44,6 +49,7 @@ subreddit\'s sidebar.""")
 
     return parser.parse_args()
 
+
 def load_config(file_name):
     config = configparser.ConfigParser({
         'no_streams': '',
@@ -62,6 +68,7 @@ def load_config(file_name):
         sys.exit('Could not open \'{}\'.'.format(file_name))
 
     return config
+
 
 def update_sidebar(config, content):
     owner = config.get('Settings', 'owner')
@@ -108,6 +115,7 @@ def render(config, streams):
         return header + body + footer
     else:
         return config.get('Settings', 'no_streams')
+
 
 # Extract the values from a stream that may be substituted into the
 # template
