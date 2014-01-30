@@ -39,11 +39,11 @@ the following substitutions made:
 | $name         | The channel name                             |
 | $viewers      | The number of active viewers                 |
 | $title        | The current title of the stream              |
-| $icon         | The URL of the streamer's 70x70 icon         |
-| $icon_tiny    | The URL of the streamer's 70x70 icon         |
-| $icon_small   | Same as $icon, but for the 150x150 icon      |
+| $icon         | The URL of the streamer's 150x150 icon       |
+| $icon_tiny    | Same as $icon, but for the 50x50 icon        |
+| $icon_small   | Same as $icon, but for the 70x70 icon        |
 | $icon_large   | Same as $icon, but for the 300x300 icon      |
-| $icon_huge    | Same as $icon, but for the 300x300 icon      |
+| $icon_huge    | Same as $icon, but for the 600x600 icon      |
 
 Code Style
 ----------
