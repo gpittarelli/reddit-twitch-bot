@@ -130,7 +130,7 @@ def render(args, config, streams):
 def get_vals(stream):
     return {
         'name': stream['channel']['display_name'],
-        'viewers': tream['viewers'],
+        'viewers': stream['viewers'],
         'title': stream['channel']['status'],
         'link': stream['channel']['url'],
         'icon': stream['channel']['logo'],
