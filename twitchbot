@@ -6,7 +6,7 @@ import argparse
 import praw
 
 from string import Template
-from lib import justintv
+from lib import twitchtv
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
 
     stream_names = config.get('Settings', 'streams').split(",")
     stream_names = [s.strip() for s in stream_names]
-    streams = justintv.fetch_streams(stream_names)
+    streams = twitchtv.fetch_streams(stream_names)
 
     output = render(args, config, streams)
 
@@ -129,15 +129,12 @@ def render(args, config, streams):
 # template
 def get_vals(stream):
     return {
-        'name': stream['channel']['login'],
-        'viewers': stream['channel_count'],
-        'title': stream['title'],
-        'status': stream['channel']['status'],
-        'icon_tiny': stream['channel']['image_url_tiny'],
-        'icon_small': stream['channel']['image_url_small'],
-        'icon': stream['channel']['image_url_medium'],
-        'icon_large': stream['channel']['image_url_large'],
-        'icon_huge': stream['channel']['image_url_huge']
+        'name': stream['channel']['display_name'],
+        'viewers': tream['viewers'],
+        'title': stream['channel']['status'],
+        'link': stream['channel']['url'],
+        'icon': stream['channel']['logo'],
+        'banner': stream['channel']['banner']
     }
 
 
