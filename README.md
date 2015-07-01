@@ -20,7 +20,7 @@ Usage
  6. Add the following code snippet in your subreddit's sidebar where
     you want the stream list to be printed.
 
-        [](#BOT_STREAMS)[](/BOT_STREAM)
+        [](#BOT_STREAMS)[](/BOT_STREAMS)
 
     These are empty links, so they won't show up on the page, but the
     bot will be able to see them and add text between them.
